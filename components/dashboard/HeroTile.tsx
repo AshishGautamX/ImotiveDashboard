@@ -1,3 +1,5 @@
+import { Flame } from "lucide-react";
+
 export function HeroTile() {
   return (
     <article className="rounded-2xl border border-accent/20 bg-bg-card p-6 md:col-span-2 lg:p-8">
@@ -11,8 +13,9 @@ export function HeroTile() {
           </h1>
         </div>
 
-        <p className="rounded-xl border border-accent/30 bg-bg-base px-4 py-2 font-heading text-sm text-text-primary">
-          {"\uD83D\uDD25"} 9 day streak
+        <p className="inline-flex items-center gap-2 rounded-xl border border-accent/30 bg-bg-base px-4 py-2 font-heading text-sm text-text-primary">
+          <Flame className="h-4 w-4 text-accent" />
+          <span>9 day streak</span>
         </p>
       </header>
 
