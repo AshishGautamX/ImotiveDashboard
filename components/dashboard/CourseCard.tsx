@@ -1,32 +1,46 @@
-import type { LucideIcon } from "lucide-react";
+import {
+  Binary,
+  BookOpen,
+  BrainCircuit,
+  DatabaseZap,
+  Globe,
+  GraduationCap,
+  Layers,
+  Server,
+  type LucideIcon,
+} from "lucide-react";
+import type { Course } from "@/types";
 
 type CourseCardProps = {
-  title: string;
-  progress: number;
-  seatsLeft: number;
-  lessonsLabel: string;
-  icon: LucideIcon;
+  course: Course;
 };
 
-export function CourseCard({
-  title,
-  progress,
-  seatsLeft,
-  lessonsLabel,
-  icon: Icon,
-}: CourseCardProps) {
+const iconMap: Record<string, LucideIcon> = {
+  Binary,
+  BookOpen,
+  BrainCircuit,
+  DatabaseZap,
+  Globe,
+  GraduationCap,
+  Layers,
+  Server,
+};
+
+export function CourseCard({ course }: CourseCardProps) {
+  const Icon = iconMap[course.icon_name] ?? BookOpen;
+
   return (
     <article className="rounded-2xl border border-accent/20 bg-bg-card p-5">
       <header className="flex items-start justify-between gap-3">
         <div>
-          <p className="font-heading text-lg leading-snug text-text-primary">{title}</p>
+          <p className="font-heading text-lg leading-snug text-text-primary">{course.title}</p>
           <p className="mt-1 text-xs uppercase tracking-[0.18em] text-text-muted">
-            {lessonsLabel}
+            Synced from Supabase
           </p>
         </div>
 
         <span className="rounded-full border border-accent/30 bg-bg-base px-3 py-1 text-xs text-text-muted">
-          {seatsLeft} seats left
+          Active course
         </span>
       </header>
 
@@ -36,13 +50,10 @@ export function CourseCard({
             <Icon className="h-4 w-4 text-accent/80" />
             Progress
           </span>
-          <span className="font-mono text-text-primary">{progress}%</span>
+          <span className="font-mono text-text-primary">{course.progress}%</span>
         </div>
         <div className="h-2 overflow-hidden rounded-full bg-bg-base/80" aria-hidden="true">
-          <div
-            className="h-full rounded-full bg-accent"
-            style={{ width: `${progress}%` }}
-          />
+          <div className="h-full rounded-full bg-accent" style={{ width: `${course.progress}%` }} />
         </div>
       </section>
     </article>

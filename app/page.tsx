@@ -1,15 +1,9 @@
-import { Binary, DatabaseZap, Globe, Server } from "lucide-react";
+import { Suspense } from "react";
 import { ActivityTile } from "@/components/dashboard/ActivityTile";
-import { CourseCard } from "@/components/dashboard/CourseCard";
+import { CourseGrid } from "@/components/dashboard/CourseGrid";
+import { CourseGridFallback } from "@/components/dashboard/CourseGridFallback";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import { HeroTile } from "@/components/dashboard/HeroTile";
-
-const staticCourses = [
-  { title: "Data Science", progress: 34, seatsLeft: 6, lessonsLabel: "17/50 lessons", icon: DatabaseZap },
-  { title: "Backend Java", progress: 18, seatsLeft: 9, lessonsLabel: "8/45 lessons", icon: Server },
-  { title: "Full Stack", progress: 52, seatsLeft: 4, lessonsLabel: "31/60 lessons", icon: Globe },
-  { title: "CS Essentials", progress: 71, seatsLeft: 3, lessonsLabel: "50/70 lessons", icon: Binary },
-] as const;
 
 export default function Home() {
   return (
@@ -33,16 +27,9 @@ export default function Home() {
 
               <ActivityTile className="md:col-span-2 lg:col-span-1" />
 
-              {staticCourses.map((course) => (
-                <CourseCard
-                  key={course.title}
-                  title={course.title}
-                  progress={course.progress}
-                  seatsLeft={course.seatsLeft}
-                  lessonsLabel={course.lessonsLabel}
-                  icon={course.icon}
-                />
-              ))}
+              <Suspense fallback={<CourseGridFallback />}>
+                <CourseGrid />
+              </Suspense>
             </section>
           </main>
         </div>
