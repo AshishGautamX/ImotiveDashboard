@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+:root {
+  --bg-primary: #070214;
+  --bg-secondary: #0a051b;
+  --accent: #9a66ff;
+  --text-primary: #ffffff;
+  --text-muted: #b0b3b8;
+}
+
+@theme inline {
+  --color-bg-base: var(--bg-primary);
+  --color-bg-card: var(--bg-secondary);
+  --color-accent: var(--accent);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --font-heading: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-jetbrains-mono), monospace;
+}
