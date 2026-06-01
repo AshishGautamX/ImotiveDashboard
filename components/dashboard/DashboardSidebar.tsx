@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { BarChart2, BookOpen, Home, PanelLeftClose, PanelRightClose, Settings, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 
@@ -23,7 +24,7 @@ export function DashboardSidebar() {
 
   return (
     <>
-      <aside 
+      <aside
         className={[
           "hidden min-h-screen border-r border-white/[0.05] bg-[#030108]/60 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:flex md:w-20 md:flex-col md:p-4 z-50",
           isCollapsed ? "lg:w-20 lg:p-4" : "lg:w-72 lg:p-6",
@@ -31,15 +32,18 @@ export function DashboardSidebar() {
       >
         <header className={`flex ${isCollapsed ? "flex-col items-center gap-6" : "items-center justify-between"}`}>
           <div className="flex items-center gap-3 overflow-hidden">
-            <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent/40 to-transparent p-[1px]">
-              <div className="flex h-full w-full items-center justify-center rounded-xl bg-[#0a0616] font-heading text-sm text-white">
-                AG
-              </div>
+            <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+              <Image
+                src="/logo.png"
+                alt="Imotive Logo"
+                width={40}
+                height={40}
+                className="h-full w-full object-cover"
+              />
             </div>
             <div
-              className={`whitespace-nowrap transition-all duration-300 ${
-                isCollapsed ? "hidden opacity-0 translate-x-4" : "hidden lg:block opacity-100 translate-x-0"
-              }`}
+              className={`whitespace-nowrap transition-all duration-300 ${isCollapsed ? "hidden opacity-0 translate-x-4" : "hidden lg:block opacity-100 translate-x-0"
+                }`}
             >
               <p className="font-heading text-base font-medium text-white">Ashish Gautam</p>
               <p className="text-xs text-accent">Pro Member</p>
@@ -83,9 +87,8 @@ export function DashboardSidebar() {
                     ) : null}
                     <Icon className={`relative z-10 h-5 w-5 shrink-0 transition-colors ${isActive ? 'text-accent' : 'text-text-muted group-hover:text-white'}`} />
                     <span
-                      className={`relative z-10 whitespace-nowrap transition-opacity duration-300 ${
-                        isCollapsed ? "hidden opacity-0" : "hidden lg:inline opacity-100"
-                      }`}
+                      className={`relative z-10 whitespace-nowrap transition-opacity duration-300 ${isCollapsed ? "hidden opacity-0" : "hidden lg:inline opacity-100"
+                        }`}
                     >
                       {label}
                     </span>

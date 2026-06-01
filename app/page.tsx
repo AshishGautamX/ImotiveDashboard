@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Image from "next/image";
 import { ActivityTile } from "@/components/dashboard/ActivityTile";
 import { AnimatedTiles } from "@/components/dashboard/AnimatedTiles";
 import { CourseGrid } from "@/components/dashboard/CourseGrid";
@@ -13,9 +14,16 @@ export default function Home() {
         <DashboardSidebar />
 
         <div className="flex min-h-screen flex-1 flex-col">
-          <nav className="sticky top-0 z-30 border-b border-white/[0.05] bg-[#030108]/60 backdrop-blur-xl px-4 py-4 sm:px-6 lg:px-8">
+          <nav className="sticky top-0 z-30 flex items-center gap-3 border-b border-white/[0.05] bg-[#030108]/60 backdrop-blur-xl px-4 py-4 sm:px-6 lg:px-8">
+            <Image 
+              src="/logo.png" 
+              alt="Imotive Logo" 
+              width={24} 
+              height={24} 
+              className="rounded object-cover lg:hidden"
+            />
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent sm:text-sm">
-              Ashish&apos;s Learning Dashboard
+              Imotive Learning Dashboard
             </p>
           </nav>
 
