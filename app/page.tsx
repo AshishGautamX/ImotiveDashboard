@@ -13,8 +13,8 @@ export default function Home() {
         <DashboardSidebar />
 
         <div className="flex min-h-screen flex-1 flex-col">
-          <nav className="border-b border-accent/20 bg-bg-card px-4 py-4 sm:px-6 lg:px-8">
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-accent sm:text-sm">
+          <nav className="sticky top-0 z-30 border-b border-white/[0.05] bg-[#030108]/60 backdrop-blur-xl px-4 py-4 sm:px-6 lg:px-8">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent sm:text-sm">
               Ashish&apos;s Learning Dashboard
             </p>
           </nav>

@@ -29,7 +29,7 @@ export default function Error({ error, reset }: ErrorPageProps) {
           <button
             type="button"
             onClick={reset}
-            className="mt-6 inline-flex items-center rounded-lg border border-accent/40 bg-bg-base px-4 py-2 font-mono text-sm text-text-primary transition-colors hover:border-accent hover:text-accent"
+            className="mt-6 inline-flex cursor-pointer items-center rounded-lg border border-accent/40 bg-bg-base px-4 py-2 font-mono text-sm text-text-primary transition-colors hover:border-accent hover:text-accent"
           >
             Retry
           </button>

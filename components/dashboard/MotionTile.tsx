@@ -5,22 +5,24 @@ import type { ReactNode } from "react";
 import type { Variants } from "framer-motion";
 
 const tileVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
   show: {
     opacity: 1,
     y: 0,
+    scale: 1,
     transition: {
       type: "spring",
-      stiffness: 260,
+      stiffness: 280,
       damping: 22,
     },
   },
   hover: {
-    scale: 1.02,
+    scale: 1.015,
+    y: -2,
     transition: {
       type: "spring",
-      stiffness: 300,
-      damping: 20,
+      stiffness: 400,
+      damping: 25,
     },
   },
 };
@@ -40,21 +42,23 @@ const borderGlowVariants: Variants = {
 type MotionTileProps = {
   children: ReactNode;
   className?: string;
+  background?: ReactNode;
 };
 
-export function MotionTile({ children, className = "" }: MotionTileProps) {
+export function MotionTile({ children, className = "", background }: MotionTileProps) {
   return (
     <motion.article
       variants={tileVariants}
       whileHover="hover"
-      whileTap={{ scale: 1.01 }}
-      className={`relative overflow-hidden rounded-2xl border border-accent/20 bg-bg-card ${className}`}
+      whileTap={{ scale: 0.99 }}
+      className={`relative cursor-pointer overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.015] backdrop-blur-xl shadow-lg transition-colors hover:bg-white/[0.03] ${className}`}
     >
+      {background}
       <motion.div
         variants={borderGlowVariants}
-        className="pointer-events-none absolute inset-0 rounded-2xl border border-accent"
+        className="pointer-events-none absolute inset-0 rounded-2xl shadow-[0_0_24px_rgba(139,92,246,0.15)] ring-1 ring-accent/40"
       />
-      <div className="relative z-10">{children}</div>
+      <div className="relative z-10 h-full">{children}</div>
     </motion.article>
   );
 }
