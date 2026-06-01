@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { ActivityTile } from "@/components/dashboard/ActivityTile";
+import { AnimatedTiles } from "@/components/dashboard/AnimatedTiles";
 import { CourseGrid } from "@/components/dashboard/CourseGrid";
 import { CourseGridFallback } from "@/components/dashboard/CourseGridFallback";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
@@ -19,8 +20,7 @@ export default function Home() {
           </nav>
 
           <main className="flex-1 px-4 pb-24 pt-5 sm:px-6 md:pb-6 lg:px-8">
-            <section
-              aria-label="Dashboard tiles"
+            <AnimatedTiles
               className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3 lg:gap-6"
             >
               <HeroTile />
@@ -30,7 +30,7 @@ export default function Home() {
               <Suspense fallback={<CourseGridFallback />}>
                 <CourseGrid />
               </Suspense>
-            </section>
+            </AnimatedTiles>
           </main>
         </div>
       </div>

@@ -1,3 +1,7 @@
+"use client";
+
+import { MotionTile } from "@/components/dashboard/MotionTile";
+
 type ActivityTileProps = {
   className?: string;
 };
@@ -20,12 +24,7 @@ function squareClass(level: number) {
 
 export function ActivityTile({ className = "" }: ActivityTileProps) {
   return (
-    <article
-      className={[
-        "rounded-2xl border border-accent/20 bg-bg-card p-5",
-        className,
-      ].join(" ")}
-    >
+    <MotionTile className={["p-5", className].join(" ")}>
       <header>
         <h2 className="font-heading text-xl tracking-tight">Weekly Activity</h2>
         <p className="mt-1 text-sm text-text-muted">Recent days are trending stronger.</p>
@@ -41,6 +40,6 @@ export function ActivityTile({ className = "" }: ActivityTileProps) {
           ))}
         </ol>
       </section>
-    </article>
+    </MotionTile>
   );
 }

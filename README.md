@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Imotive Dashboard
 
-## Getting Started
+A dark-mode learning dashboard built with Next.js App Router, Tailwind CSS, Supabase, and Framer Motion.
 
-First, run the development server:
+## Stack
+- Next.js (App Router + TypeScript)
+- Tailwind CSS v4
+- Supabase (`@supabase/ssr` + `@supabase/supabase-js`)
+- Framer Motion
+- Lucide React
 
+## Run Locally
+1. Install dependencies:
+```bash
+npm install
+```
+2. Add environment variables in `.env.local`:
+```bash
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
+3. Start dev server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Supabase Setup
+1. Create a Supabase project.
+2. Run [`supabase/schema.sql`](./supabase/schema.sql) in SQL Editor.
+3. This creates and seeds `courses` with:
+- Data Science (34%)
+- Backend Java (18%)
+- Full Stack (52%)
+- CS Essentials (71%)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Architecture Choices
+- Kept the route-level page as a Server Component for data-safe rendering.
+- Used a dedicated server Supabase client in `lib/supabase/server.ts`.
+- Fetched course data in an async Server Component (`CourseGrid`) and rendered typed cards.
+- Composed animation behavior through small client components (`AnimatedTiles`, `MotionTile`) so data fetching stays server-first.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Server / Client Split
+Server components:
+- `app/page.tsx` (route shell + suspense composition)
+- `components/dashboard/CourseGrid.tsx` (Supabase read)
+- `lib/supabase/server.ts` (SSR client)
 
-## Learn More
+Client components:
+- `DashboardSidebar` (active nav state + layoutId animation)
+- `HeroTile` (streak count-up)
+- `CourseCard` (progress animation)
+- `ActivityTile`, `AnimatedTiles`, `MotionTile` (motion choreography)
+- `app/error.tsx` (interactive retry boundary)
 
-To learn more about Next.js, take a look at the following resources:
+## Loading and Error Handling
+- Suspense fallback for courses via `CourseGridFallback` + pulse skeleton cards.
+- Route-level styled error boundary in `app/error.tsx` for graceful failure UI.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Animation System (Phase 4)
+- Staggered entrance: `staggerChildren: 0.08`
+- Tile entry transition: spring (`stiffness: 260`, `damping: 22`) with `y: 16 -> 0` and fade.
+- Hover interaction: scale to `1.02` with spring (`stiffness: 300`, `damping: 20`).
+- Border glow: opacity-only animated overlay (no layout shift).
+- Progress bars: animate `0 -> progress%` on mount with index-based delay.
+- Sidebar active pill: Framer Motion `layoutId="nav-highlight"`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Responsive Behavior
+- Desktop (`>=1024px`): full sidebar + 3-column bento.
+- Tablet (`768px - 1023px`): icon-only sidebar + 2-column bento.
+- Mobile (`<768px`): bottom nav + single-column tiles.
 
-## Deploy on Vercel
+## Challenges Faced
+- Preventing hydration mismatch noise in dev from extension-injected attributes.
+- Preserving RSC data flow while adding motion orchestration.
+- Keeping hover effects visually rich while avoiding layout shift.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Verification
+- `npm run build` passes.

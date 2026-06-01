@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Binary,
   BookOpen,
@@ -9,10 +11,13 @@ import {
   Server,
   type LucideIcon,
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { MotionTile } from "@/components/dashboard/MotionTile";
 import type { Course } from "@/types";
 
 type CourseCardProps = {
   course: Course;
+  index: number;
 };
 
 const iconMap: Record<string, LucideIcon> = {
@@ -26,11 +31,11 @@ const iconMap: Record<string, LucideIcon> = {
   Server,
 };
 
-export function CourseCard({ course }: CourseCardProps) {
+export function CourseCard({ course, index }: CourseCardProps) {
   const Icon = iconMap[course.icon_name] ?? BookOpen;
 
   return (
-    <article className="rounded-2xl border border-accent/20 bg-bg-card p-5">
+    <MotionTile className="p-5">
       <header className="flex items-start justify-between gap-3">
         <div>
           <p className="font-heading text-lg leading-snug text-text-primary">{course.title}</p>
@@ -53,9 +58,18 @@ export function CourseCard({ course }: CourseCardProps) {
           <span className="font-mono text-text-primary">{course.progress}%</span>
         </div>
         <div className="h-2 overflow-hidden rounded-full bg-bg-base/80" aria-hidden="true">
-          <div className="h-full rounded-full bg-accent" style={{ width: `${course.progress}%` }} />
+          <motion.div
+            className="h-full rounded-full bg-accent"
+            initial={{ width: 0 }}
+            animate={{ width: `${course.progress}%` }}
+            transition={{
+              duration: 0.8,
+              ease: "easeOut",
+              delay: index * 0.08 + 0.12,
+            }}
+          />
         </div>
       </section>
-    </article>
+    </MotionTile>
   );
 }
