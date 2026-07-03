@@ -1,20 +1,41 @@
 import { CourseCard } from "@/components/dashboard/CourseCard";
-import { createClient } from "@/lib/supabase/server";
+
 import type { Course } from "@/types";
 
 export async function CourseGrid() {
-  const supabase = await createClient();
+  // Simulate a network delay so the loading skeleton still works
+  await new Promise((resolve) => setTimeout(resolve, 800));
 
-  const { data, error } = await supabase
-    .from("courses")
-    .select("id,title,progress,icon_name,created_at")
-    .order("created_at", { ascending: true });
-
-  if (error) {
-    throw new Error(`Failed to fetch courses: ${error.message}`);
-  }
-
-  const courses = (data ?? []) as Course[];
+  const courses: Course[] = [
+    {
+      id: "1",
+      title: "Data Science",
+      progress: 34,
+      icon_name: "BrainCircuit",
+      created_at: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(), // 4 days ago
+    },
+    {
+      id: "2",
+      title: "Backend Java",
+      progress: 18,
+      icon_name: "Server",
+      created_at: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    },
+    {
+      id: "3",
+      title: "Full Stack",
+      progress: 52,
+      icon_name: "Layers",
+      created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    },
+    {
+      id: "4",
+      title: "CS Essentials",
+      progress: 71,
+      icon_name: "BookOpen",
+      created_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+    },
+  ];
 
   if (!courses.length) {
     return (
